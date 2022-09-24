@@ -1,0 +1,25 @@
+{
+  "name": "learningnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app.js",
+    "swagger-autogen": "nodemon swagger.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "querystring": "^0.2.1",
+    "sequelize": "^6.23.1",
+    "sequelize-cli": "^6.4.1",
+    "swagger-autogen": "^2.22.0",
+    "swagger-ui-express": "^4.5.0",
+    "url": "^0.11.0"
+  }
+}
