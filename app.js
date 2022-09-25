@@ -10,6 +10,7 @@ const port = '1234';
 
 //Controllers
 const alunos = require('./src/controllers/students');
+const users = require('./src/controllers/users');
 
 //JSON parser
 app.use(bodyParser.json());
@@ -21,6 +22,7 @@ app.use(
 
 //API using controllers
 app.use('/', alunos);
+app.use('/', users);
 
 //Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

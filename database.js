@@ -3,7 +3,7 @@ var pg = new postgres.Pool({
   user: 'postgres',
   password: 'admin',
   host: 'localhost',
-  database: 'database_development',
+  database: 'new_development_db',
   port: 5432,
 });
 
