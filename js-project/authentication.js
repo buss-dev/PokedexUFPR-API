@@ -1,11 +1,13 @@
 require('dotenv').config();
+
 const express = require('express');
 const router = express.Router();
 const database = require('../../database');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const authenticateToken = require('../utils/authenticateToken');
 
-router.get('/users', (req, res) => {
+router.get('/users', authenticateToken, (req, res) => {
   database.query(`SELECT * FROM students`, (err, results) => {
     if (err) {
       throw err;
@@ -49,9 +51,9 @@ router.post('/login', (req, res) => {
         try {
           if (await bcrypt.compare(req.body.password, user.password)) {
             const token = generateAccessToken(user);
-            res.send(`Success, your token is: ${token}`);
+            res.send(`{"message": "Success", "token": "${token}"}`);
           } else {
-            res.send('Not allowed');
+            res.status(405).send('Not allowed');
           }
         } catch {
           res.sendStatus(500);
@@ -79,8 +81,7 @@ function signUpUser(user, res) {
 }
 
 function generateAccessToken(user) {
-  // return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' });
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 }
 
 module.exports = router;

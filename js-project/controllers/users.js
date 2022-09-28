@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const routes = require('../routes/alunos');
+const routes = require('../routes/authentication');
 
-app.use('/students', routes);
+app.use('/', routes);
 
 module.exports = app;

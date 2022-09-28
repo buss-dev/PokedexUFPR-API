@@ -2,6 +2,6 @@ const express = require('express');
 const app = express();
 const routes = require('../routes/authentication');
 
-app.use('/users', routes);
+app.use('/', routes);
 
 module.exports = app;

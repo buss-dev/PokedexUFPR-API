@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API Learning",
+        "description": "API de aprendizado",
+        "version": "1.0"
+    },
+    "host": "localhost:1234",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/students/insertNewStudent": {
+            "post": {
+                "description": "Insira novo estudante",
+                "operationId": "newStudent",
+                "tags": [
+                    "Students"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "nome_aluno",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "example": {
+                                "nome_aluno": "João"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aluno cadastrado com sucesso"
+                    }
+                }
+            }
+        },
+        "/students/getAllStudents": {
+            "get": {
+                "description": "Listar todos estudantes",
+                "operationId": "allStudents",
+                "tags": [
+                    "Students"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listagem de alunos"
+                    }
+                }
+            }
+        },
+        "/students/getStudentById": {
+            "get": {
+                "description": "Listar um estudante",
+                "operationId": "studentById",
+                "tags": [
+                    "Students"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID do aluno",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informação do aluno"
+                    }
+                }
+            }
+        },
+        "/students/deleteStudentById": {
+            "delete": {
+                "description": "Deletar um estudante",
+                "operationId": "deleteStudentById",
+                "tags": [
+                    "Students"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID do aluno",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aluno removido"
+                    }
+                }
+            }
+        },
+        "/students/updateStudentById": {
+            "put": {
+                "description": "Atualizar um estudante",
+                "operationId": "updateStudentById",
+                "tags": [
+                    "Students"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "ID do aluno",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "nome_aluno",
+                        "description": "Nome do aluno",
+                        "in": "query",
+                        "schema": {
+                            "type": "String"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aluno removido"
+                    }
+                }
+            }
+        }
+    }
+}
