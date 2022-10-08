@@ -1,5 +1,6 @@
 import express from 'express';
 import { router } from './router';
+import swaggerUi from 'swagger-ui-express';
 
 export class App {
   public server: express.Application;

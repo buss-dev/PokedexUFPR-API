@@ -1,13 +1,9 @@
 import { Router } from 'express';
-import { firstController } from './app/controller/FirstController';
-import { authentication } from './routes/authentication';
+import { router as authenticationRoutes } from './routes/authenticationRoutes';
 
 const router: Router = Router();
 
 //Routes
-router.get('/', firstController.home);
-router.get('/users/getAll', authentication.getUsers);
-router.post('/users/login', authentication.loginUser);
-router.post('/users/register', authentication.registerUser);
+router.use('/', authenticationRoutes);
 
 export { router };
