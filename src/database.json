@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "driver": "pg",
+        "user": "postgres",
+        "password": "admin",
+        "host": "localhost",
+        "database": "personal_bank",
+        "port": 5432
+    },
+    "sql-file": true
+}

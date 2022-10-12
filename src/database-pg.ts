@@ -8,7 +8,7 @@ class Database {
       user: 'postgres',
       password: 'admin',
       host: 'localhost',
-      database: 'new_development_db',
+      database: 'personal_bank',
       port: 5432,
     });
     this.client.connect();

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import { database } from '../database';
+import { database } from '../database-pg';
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -22,17 +22,19 @@ const generateAccessToken = (user: any) => {
 const authenticateToken = (req: Request, res: Response) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.sendStatus(401);
+  if (token == null) return res.status(401).send('Is required to be logged');
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err) => {
-    if (err) return res.sendStatus(403);
+    if (err) return res.status(403).send('An error ocurred in authentication');
   });
 };
 
 class AuthenticationRoutes {
   public async getUsers(req: Request, res: Response) {
-    console.log(authenticateToken(req, res));
-    const result = await database.client.query(`SELECT * FROM students`);
+    try {
+      authenticateToken(req, res);
+    } catch {}
+    const result = await database.client.query(`SELECT * FROM person`);
     return res.json({
       response: result.rows,
     });
@@ -40,7 +42,7 @@ class AuthenticationRoutes {
 
   public async loginUser(req: Request, res: Response) {
     const result = await database.client.query(
-      `SELECT * FROM students WHERE email = $1`,
+      `SELECT * FROM person WHERE person_email = $1`,
       [req.body.email]
     );
     const user = {
@@ -72,7 +74,7 @@ class AuthenticationRoutes {
     };
     const result = await database.client.query(
       `
-    INSERT into students(first_name, last_name, email, password)
+    INSERT into person(person_first_name, person_last_name, person_email, person_password)
     VALUES ($1,$2,$3,$4) 
     `,
       [user.firstName, user.lastName, user.email, user.password]
@@ -86,8 +88,8 @@ class AuthenticationRoutes {
     const id: string = req.query.id;
     const result = await database.client.query(
       `
-      DELETE from students
-      WHERE id = $1
+      DELETE from person
+      WHERE person_id = $1
       `,
       [id]
     );
@@ -102,9 +104,9 @@ class AuthenticationRoutes {
     const lastName: string = req.body.lastName;
     const result = await database.client.query(
       `
-      UPDATE students
-      SET first_name = $1, last_name = $2
-      WHERE id = $3
+      UPDATE person
+      SET person_first_name = $1, person_last_name = $2
+      WHERE person_id = $3
       `,
       [firstName, lastName, id]
     );
