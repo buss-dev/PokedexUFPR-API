@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { router as authenticationRoutes } from './routes/authenticationRoutes';
+import { router as personRoutes } from './routes/person_routes';
 
 const router: Router = Router();
 
 //Routes
-router.use('/', authenticationRoutes);
+router.use('/', personRoutes);
 
 export { router };

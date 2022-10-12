@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { database } from '../database-pg';
-import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { authenticateToken } from '../utils/authenticate_token';
 
 dotenv.config();
 
@@ -19,17 +19,7 @@ const generateAccessToken = (user: any) => {
   });
 };
 
-const authenticateToken = (req: Request, res: Response) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.status(401).send('Is required to be logged');
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err) => {
-    if (err) return res.status(403).send('An error ocurred in authentication');
-  });
-};
-
-class AuthenticationRoutes {
+class Person {
   public async getUsers(req: Request, res: Response) {
     try {
       authenticateToken(req, res);
@@ -116,4 +106,4 @@ class AuthenticationRoutes {
   }
 }
 
-export const authentication: AuthenticationRoutes = new AuthenticationRoutes();
+export const person: Person = new Person();
