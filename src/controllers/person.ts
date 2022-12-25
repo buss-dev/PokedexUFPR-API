@@ -19,6 +19,18 @@ const generateAccessToken = (user: any) => {
   });
 };
 
+const validateUniqueEmail = async (email: string, res: Response) => {
+  const result = await database.client.query(
+    `SELECT * FROM person WHERE person_email = $1`,
+    [email]
+  );
+  if (result.rows.length > 0) {
+    res
+      .status(406)
+      .send('{"message": "This e-mail already exists in our database!"}');
+  }
+};
+
 class Person {
   public async getUsers(req: Request, res: Response) {
     try {
@@ -55,6 +67,8 @@ class Person {
   }
 
   public async registerUser(req: Request, res: Response) {
+    validateUniqueEmail(req.body.email, res);
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
       firstName: req.body.firstName,
@@ -62,6 +76,7 @@ class Person {
       email: req.body.email,
       password: hashedPassword,
     };
+
     const result = await database.client.query(
       `
     INSERT into person(person_first_name, person_last_name, person_email, person_password)
@@ -69,6 +84,7 @@ class Person {
     `,
       [user.firstName, user.lastName, user.email, user.password]
     );
+
     return res.json({
       response: user,
     });
@@ -104,6 +120,7 @@ class Person {
       response: `Usuário ${req.body.id} editado`,
     });
   }
+
 }
 
 export const person: Person = new Person();
