@@ -8,7 +8,7 @@ class Database {
       user: 'postgres',
       password: 'admin',
       host: 'localhost',
-      database: 'personal_bank',
+      database: 'pokeapi_ufpr_express',
       port: 5432,
     });
     this.client.connect();
