@@ -329,6 +329,8 @@ class Pokemon {
         join conjunto_habilidades_pokemon chp on chp.id_habilidade_pokemon = hp.id_habilidade_pokemon 
         join pokemon p on p.id_pokemon = chp.id_pokemon 
         group by hp.nome_habilidade_pokemon   
+        order by count(p.id_pokemon) desc
+     limit 3
         `
         )
       );
