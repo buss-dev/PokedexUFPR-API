@@ -1,3 +1,3 @@
-# crud-express-sequelize
+# express-pokedex
 
-Api CRUD para aprendizado do express com integração ao postgres e utilizando o sequelize para migrations
+API pokedex utilizada para aula de Desenvolvimento Mobile, outro projeto que consome ela está aqui neste github
